@@ -4,7 +4,7 @@
 [ext_resource path="res://Guest.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 150.29
+radius = 124.702
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 6.04475
@@ -15,6 +15,9 @@ radius = 24.5545
 
 [node name="Guest" type="KinematicBody2D"]
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="ExclusionZone" type="Area2D" parent="."]
 

@@ -10,6 +10,7 @@ signal dropped_off_idle
 signal dropped_off_fail
 var rng = RandomNumberGenerator.new()
 onready var sprite = $Sprite
+onready var exclusionZoneShape = $ExclusionZone/CollisionShape2D
 
 var colorList = [
 	Color.yellow,
