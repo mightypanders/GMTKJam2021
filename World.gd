@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var streets = $Streets
+onready var guests = $Guests
 
 var Guest = load("res://Guest.tscn")
 
@@ -22,4 +23,5 @@ func _on_GuestTimer_timeout():
 	print('new guest at: %s' % [guest_position])
 	var guest = Guest.instance();
 	guest.position = guest_position;
-	add_child(guest)
+	guests.add_child(guest)
+	print('Guest count: %s' % [guests.get_child_count()])

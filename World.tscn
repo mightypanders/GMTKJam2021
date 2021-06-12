@@ -222,19 +222,21 @@ position = Vector2( 520.662, 230.739 )
 [node name="DropOffPoint3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 166.312, 322.885 )
 
-[node name="Guest" parent="." instance=ExtResource( 5 )]
-position = Vector2( 337.119, 100.387 )
-
-[node name="Guest2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 761.14, 102.634 )
-
-[node name="Guest3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 758.143, 376.075 )
-
 [node name="GuestTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 script = ExtResource( 8 )
 
-[connection signal="picked_up" from="Guest" to="." method="_on_Guest_picked_up"]
+[node name="Guests" type="Node" parent="."]
+
+[node name="Guest" parent="Guests" instance=ExtResource( 5 )]
+position = Vector2( 337.119, 100.387 )
+
+[node name="Guest2" parent="Guests" instance=ExtResource( 5 )]
+position = Vector2( 761.14, 102.634 )
+
+[node name="Guest3" parent="Guests" instance=ExtResource( 5 )]
+position = Vector2( 758.143, 376.075 )
+
 [connection signal="timeout" from="GuestTimer" to="." method="_on_GuestTimer_timeout"]
+[connection signal="picked_up" from="Guests/Guest" to="." method="_on_Guest_picked_up"]
