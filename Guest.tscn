@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/placeholder_white.png" type="Texture" id=1]
 [ext_resource path="res://Guest.gd" type="Script" id=2]
+
+[sub_resource type="PhysicsMaterial" id=3]
+absorbent = true
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 124.702
@@ -15,8 +18,10 @@ height = 3.32129
 ]]
 collision_layer = 3
 collision_mask = 3
-mass = 10.4357
-gravity_scale = 128.0
+mass = 10.0
+physics_material_override = SubResource( 3 )
+gravity_scale = 0.0
+angular_damp = 100.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
