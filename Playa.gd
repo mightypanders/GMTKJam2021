@@ -7,8 +7,9 @@ export var FRICTION = 50
 var velocity = Vector2.ZERO
 var last_in_line
 var destinationColor = Color.transparent
-onready var guestListNode = $GuestList
+var guestName = 'Car'
 
+signal scored(value)
 var guests = []
 
 func _ready():
@@ -18,7 +19,7 @@ func _ready():
 
 func add_Guest_to_Line(parent,guest):
 	guests.append(guest)
-
+	print('Picked up Guest %s with color %s'%[guest.guestName,guest.destinationColor])
 	var parentAnchor = parent.get_node("Anchor")
 	parentAnchor.add_child(get_a_springjoint(parent,guest))
 	var pua = guest.get_node("PickUpArea")
@@ -29,16 +30,20 @@ func add_Guest_to_Line(parent,guest):
 func get_a_springjoint(parent,child):
 	var springJoint = DampedSpringJoint2D.new()
 	#springJoint.rotation+=get_angle_to(guest.global_position)
-	springJoint.length = 50
-	springJoint.rest_length = 10
+	springJoint.length = 5
+	springJoint.rest_length = 5
 	springJoint.stiffness = 64
 	springJoint.damping = 1.0
-	springJoint.disable_collision =false
+	springJoint.disable_collision =true
 	
 	springJoint.node_a =parent.get_path()
 	springJoint.node_b =child.get_path()
 	springJoint.add_child(child)
 	return springJoint
+
+func get_score_from_guest(guest):
+	
+	return 1
 
 func remove_Guests_from_Line(color):
 
@@ -50,6 +55,8 @@ func remove_Guests_from_Line(color):
 				colormatches.append(guests[g])
 
 	for i in colormatches:
+		var scoreValue = get_score_from_guest(i)
+		emit_signal("scored",scoreValue)
 		var pos = guests.find(i)
 		i.queue_free()
 		guests.remove(pos)
@@ -62,7 +69,7 @@ func _on_PickupCheckArea_area_entered(area):
 		var dop = area.get_parent()
 		var color = dop.destinationColor
 		print(color)
-		last_in_line= remove_Guests_from_Line(color)
+		last_in_line = remove_Guests_from_Line(color)
 		#drop all guests after first guest.color == DOP.color, also vanish all guests.color == DOP.color
 		pass
 	if area.get_parent().is_in_group("Guest"):
