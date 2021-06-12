@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://assets/city_tiles/Street.png" type="Texture" id=1]
 [ext_resource path="res://assets/city_tiles/Buildings.png" type="Texture" id=2]
@@ -1072,6 +1072,7 @@ autostart = true
 position = Vector2( 337.119, 100.387 )
 
 [node name="GUI" parent="." instance=ExtResource( 33 )]
+margin_bottom = 80.0
 
 [connection signal="scored" from="Playa" to="." method="_on_Playa_scored"]
 [connection signal="timeout" from="GuestTimer" to="." method="_on_GuestTimer_timeout"]
