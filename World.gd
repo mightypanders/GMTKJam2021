@@ -1,18 +1,25 @@
 extends Node2D
 
+onready var streets = $Streets
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var Guest = load("res://Guest.tscn")
+
+var rng = RandomNumberGenerator.new()
 
 func _on_Guest_picked_up(destinationColor,name):
 	print('Picked Up %s with name %s' % [destinationColor,name])
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	rng.randomize()
+	pass 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _on_GuestTimer_timeout():
+	var used_cells = streets.get_used_cells()
+	var new_guest_cell = used_cells[rng.randi_range(0, used_cells.size())]
+	var guest_position = streets.map_to_world(new_guest_cell)
+	print('new guest at: %s' % [guest_position])
+	var guest = Guest.instance();
+	guest.position = guest_position;
+	add_child(guest)

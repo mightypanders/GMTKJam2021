@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/city_tiles/Street.png" type="Texture" id=1]
 [ext_resource path="res://assets/city_tiles/Buildings.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Guest.tscn" type="PackedScene" id=5]
 [ext_resource path="res://World.gd" type="Script" id=6]
 [ext_resource path="res://assets/placeholder_white.png" type="Texture" id=7]
+[ext_resource path="res://GuestTimer.gd" type="Script" id=8]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Street.png 0"
@@ -230,4 +231,10 @@ position = Vector2( 761.14, 102.634 )
 [node name="Guest3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 758.143, 376.075 )
 
+[node name="GuestTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+script = ExtResource( 8 )
+
 [connection signal="picked_up" from="Guest" to="." method="_on_Guest_picked_up"]
+[connection signal="timeout" from="GuestTimer" to="." method="_on_GuestTimer_timeout"]
