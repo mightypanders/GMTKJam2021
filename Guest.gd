@@ -15,6 +15,10 @@ var rng = RandomNumberGenerator.new()
 onready var sprite = $Sprite
 onready var exclusionZoneShape = $ExclusionZone/CollisionShape2D
 
+enum states {
+	waiting,
+	tethered
+}
 var colorList = [
 	Color.yellow,
 	Color.violet,
@@ -22,32 +26,43 @@ var colorList = [
 	Color.turquoise,
 	Color.orange
 ]
+var names = [
+	'Dieter',
+	'Peter',
+	'Gabi',
+	'Ursula',
+	'Manni',
+	'Karl',
+	'Christa',
+	'Britta'
+]
+var currentState = states.waiting
 
-# Called when the node enters the scene tree for the first time.
-func _ready():	
+func _physics_process(delta):
+	linear_velocity = linear_velocity.clamped(100)
+	if currentState == states.waiting:
+		linear_velocity.move_toward(Vector2.ZERO,5.0)
+	elif currentState == states.tethered:
+		pass
 
-	#print(get_tree().get_root().get_node("Playa"))
-	#connect('picked_up',get_tree().get_nodes_in_group("Player")[0], '_on_Guest_picked_up')
 
+func _ready():
 	rng.randomize()
 	var n = rng.randi_range(0,4)
-	#print(n)
 	destinationColor = colorList[n]
-	#print(destinationColor)
 	sprite.modulate = destinationColor
-	
+	var m = rng.randi_range(0,names.size()-1)
+	guestName = names[m]
 
 func _on_PickUpArea_body_entered(body):
 	print(body.name)
 	if body.name == "Playa":
-		print(body.velocity.length())
-		if body.velocity.length() <= PICKUPTRESHOLD:
-			emit_signal("picked_up",destinationColor,guestName)
+
+
 			pickup_time = OS.get_system_time_msecs()
+			emit_signal("picked_up",destinationColor,guestName)
 			# start pickup process
-
 		# we are being picked up by the player
-
 	pass
 
 func _on_PickUpArea_area_entered(area):
