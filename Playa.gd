@@ -4,7 +4,6 @@ export var ACCELERATION = 60
 export var MAX_SPEED = 150
 export var FRICTION = 50
 
-var ROPEPIECE = preload("res://Rope.tscn")
 var velocity = Vector2.ZERO
 var last_in_line
 var destinationColor = Color.transparent
@@ -19,8 +18,15 @@ func _ready():
 
 func add_Guest_to_Line(parent,guest):
 	guests.append(guest)
-	guestListNode.add_child(guest)
-	
+
+	var parentAnchor = parent.get_node("Anchor")
+	parentAnchor.add_child(get_a_springjoint(parent,guest))
+	var pua = guest.get_node("PickUpArea")
+	pua.monitorable = false
+	#springJoint.rotation = -rotation
+	return guest
+
+func get_a_springjoint(parent,child):
 	var springJoint = DampedSpringJoint2D.new()
 	#springJoint.rotation+=get_angle_to(guest.global_position)
 	springJoint.length = 50
@@ -28,16 +34,11 @@ func add_Guest_to_Line(parent,guest):
 	springJoint.stiffness = 64
 	springJoint.damping = 1.0
 	springJoint.disable_collision =false
+	
 	springJoint.node_a =parent.get_path()
-	springJoint.node_b =guest.get_path()
-	springJoint.add_child(guest)
-	parent.add_child(springJoint)
-	var pua = guest.get_node("PickUpArea")
-	pua.monitorable = false
-	var guestAnchor = guest.get_node("Anchor")
-	#springJoint.rotation = -rotation
-	return guestAnchor
-
+	springJoint.node_b =child.get_path()
+	springJoint.add_child(child)
+	return springJoint
 
 func remove_Guests_from_Line(color):
 
@@ -66,8 +67,12 @@ func _on_PickupCheckArea_area_entered(area):
 		pass
 	if area.get_parent().is_in_group("Guest"):
 		if guests.has(area.get_parent()):
+			print("Area has parent %s" % area.get_parent())
+			print("Guests we have:")
+			print(guests)
 			print("We already have you in line")
 		else:
+			print("Area has parent %s" % area.get_parent())
 			print("It's a Guest")
 			last_in_line = add_Guest_to_Line(last_in_line,area.get_parent())
 			print(last_in_line)
