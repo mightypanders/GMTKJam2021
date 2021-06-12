@@ -13,8 +13,8 @@ onready var guestListNode = $GuestList
 var guests = []
 
 func _ready():
-	last_in_line = $Anchor
-	guests.append(last_in_line.get_parent())
+	last_in_line = self
+	guests.append(last_in_line)
 	pass # Replace with function body.
 
 func add_Guest_to_Line(parent,guest):
@@ -28,29 +28,30 @@ func add_Guest_to_Line(parent,guest):
 	springJoint.stiffness = 64
 	springJoint.damping = 1.0
 	springJoint.disable_collision =false
-	springJoint.node_a =parent.get_parent().get_path()
+	springJoint.node_a =parent.get_path()
 	springJoint.node_b =guest.get_path()
 	springJoint.add_child(guest)
 	parent.add_child(springJoint)
 	var pua = guest.get_node("PickUpArea")
-	pua.monitoring = false
 	pua.monitorable = false
 	var guestAnchor = guest.get_node("Anchor")
-	springJoint.rotation = -rotation
+	#springJoint.rotation = -rotation
 	return guestAnchor
 
 
 func remove_Guests_from_Line(color):
 
-	var colorPositions = []
+	var colormatches = []
 
 	for g in range(guests.size()):
-		if guests[g].destinationColor == color:
-			guests[g].queue_free()
-			colorPositions.append(g)
+		if guests[g]!= null:
+			if guests[g].destinationColor == color:
+				colormatches.append(guests[g])
 
-	for i in colorPositions:
-		guests.remove(i)
+	for i in colormatches:
+		var pos = guests.find(i)
+		i.queue_free()
+		guests.remove(pos)
 	return guests.back()
 
 func _on_PickupCheckArea_area_entered(area):

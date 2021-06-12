@@ -2,7 +2,7 @@ extends RigidBody2D
 
 onready var pickUpArea = $PickUpArea
 export var guestName = "Dieter"
-export var  PICKUPTRESHOLD = 80
+export var  PICKUPTRESHOLD = 100
 export var destinationColor = Color.yellow
 signal picked_up(color,name)
 signal dropped_off_success 
