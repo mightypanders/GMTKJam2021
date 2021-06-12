@@ -42,9 +42,12 @@ func get_a_springjoint(parent,child):
 	return springJoint
 
 func get_score_from_guest(guest):
+	var now = OS.get_system_time_msecs()
+	var diff = now - guest.pickup_time
+	var score = diff / 1000
+	score = 50 - score
+	return score
 	
-	return 1
-
 func remove_Guests_from_Line(color):
 
 	var colormatches = []
