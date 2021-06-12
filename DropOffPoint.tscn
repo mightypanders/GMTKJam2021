@@ -6,7 +6,9 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 25.16
 
-[node name="DropOffPoint" type="Node2D"]
+[node name="DropOffPoint" type="Node2D" groups=[
+"DropOffPoint",
+]]
 script = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
