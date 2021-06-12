@@ -691,5 +691,6 @@ autostart = true
 [node name="Guest" parent="Guests" instance=ExtResource( 5 )]
 position = Vector2( 337.119, 100.387 )
 
+[connection signal="scored" from="Playa" to="." method="_on_Playa_scored"]
 [connection signal="timeout" from="GuestTimer" to="." method="_on_GuestTimer_timeout"]
 [connection signal="picked_up" from="Guests/Guest" to="." method="_on_Guest_picked_up"]

@@ -4,6 +4,8 @@ onready var streets = $Streets
 onready var used_cells = streets.get_used_cells()
 onready var guests = $Guests
 
+export var player_score = 0
+
 var Guest = load("res://Guest.tscn")
 
 var rng = RandomNumberGenerator.new()
@@ -36,7 +38,7 @@ func create_new_guest():
 	
 	while !position_found:
 		if spawn_tries >= MAX_SPAWN_TRIES:
-			print("Max spawn tries reached!")
+			#print("Max spawn tries reached!")
 			return
 		position_found = true;
 		var new_guest_cell = used_cells[rng.randi_range(0, used_cells.size()) -1]
@@ -52,3 +54,9 @@ func create_new_guest():
 	new_guest.position = new_guest_position;
 	guests.add_child(new_guest)
 	spawn_tries = 0
+
+
+func _on_Playa_scored(value:int):
+	print('Its a score of %s'% String(value))
+	player_score += value
+	pass # Replace with function body.
