@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/city_tiles/Street.png" type="Texture" id=1]
 [ext_resource path="res://assets/city_tiles/Buildings.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://DropOffPoint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Guest.tscn" type="PackedScene" id=5]
 [ext_resource path="res://World.gd" type="Script" id=6]
+[ext_resource path="res://assets/placeholder_white.png" type="Texture" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Street.png 0"
@@ -180,6 +181,18 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 6 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 0.0352941, 0.121569, 0, 1 )
+margin_left = 3.77975
+margin_top = -0.154297
+margin_right = 1288.78
+margin_bottom = 719.846
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Streets" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
