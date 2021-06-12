@@ -3,6 +3,7 @@ extends Node2D
 onready var streets = $Streets
 onready var used_cells = streets.get_used_cells()
 onready var guests = $Guests
+onready var money_label = $GUI/HBoxContainer/HBoxContainer2/Money
 
 export var player_score = 0
 
@@ -11,6 +12,7 @@ var Guest = load("res://Guest.tscn")
 var rng = RandomNumberGenerator.new()
 var spawn_tries = 0
 const MAX_SPAWN_TRIES = 50
+
 
 onready var radius_guests = guests.get_child(0).exclusionZoneShape.shape.radius * 2
 export var max_guests = 10
@@ -59,4 +61,4 @@ func create_new_guest():
 func _on_Playa_scored(value:int):
 	print('Its a score of %s'% String(value))
 	player_score += value
-	pass # Replace with function body.
+	money_label.update_text(player_score)
