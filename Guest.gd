@@ -1,8 +1,8 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 onready var pickUpArea = $PickUpArea
 export var guestName = "Dieter"
-export var  PICKUPTRESHOLD = 5
+export var  PICKUPTRESHOLD = 80
 export var destinationColor = Color.yellow
 signal picked_up(color,name)
 signal dropped_off_success 
@@ -21,11 +21,15 @@ var colorList = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
+
+	#print(get_tree().get_root().get_node("Playa"))
+	#connect('picked_up',get_tree().get_nodes_in_group("Player")[0], '_on_Guest_picked_up')
+
 	rng.randomize()
 	var n = rng.randi_range(0,4)
-	print(n)
+	#print(n)
 	destinationColor = colorList[n]
-	print(destinationColor)
+	#print(destinationColor)
 	sprite.modulate = destinationColor
 
 
@@ -35,8 +39,8 @@ func _ready():
 func _on_PickUpArea_body_entered(body):
 	print(body.name)
 	if body.name == "Playa":
-		print(body.velocity)
-		if body.velocity.x >= PICKUPTRESHOLD and body.velocity.y >= PICKUPTRESHOLD:
+		print(body.velocity.length())
+		if body.velocity.length() <= PICKUPTRESHOLD:
 			emit_signal("picked_up",destinationColor,guestName)
 			# start pickup process
 
