@@ -33,8 +33,10 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_PickUpArea_body_entered(body):
-	if body.name =="PLAYER":
-		if body.velocity.x >= PICKUPTRESHOLD or body.velocity.y >= PICKUPTRESHOLD:
+	print(body.name)
+	if body.name == "Playa":
+		print(body.velocity)
+		if body.velocity.x >= PICKUPTRESHOLD and body.velocity.y >= PICKUPTRESHOLD:
 			emit_signal("picked_up",destinationColor,guestName)
 			# start pickup process
 
