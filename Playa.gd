@@ -20,13 +20,15 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 		
-	var steering_right = Input.is_action_pressed("ui_right")
-	
-	if steering_right:
-		var direction_new = direction.rotated(PI/128 * delta)
-		velocity = velocity.rotated(direction_new.angle())
-		rotate(direction_new.angle())
-		print(direction_new.angle_to(direction))
+	var steer_dir = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		
+	if steer_dir != 0:
+		var direction_new = direction.rotated(PI/2 * steer_dir * delta)
+		print(PI/8 * delta)
+		#print(velocity.angle_to(velocity.rotated(direction_new.angle())))
+		velocity = velocity.rotated(direction.angle_to(direction_new))
+		rotate(direction.angle_to(direction_new))
+		
 		
 	
 	#print(velocity)
