@@ -59,6 +59,7 @@ func create_new_guest():
 
 
 func _on_Playa_scored(value:int):
+	spawn_tries = 0
 	print('Its a score of %s'% String(value))
 	player_score += value
 	money_label.update_text(player_score)
