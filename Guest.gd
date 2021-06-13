@@ -56,7 +56,8 @@ func _physics_process(delta):
 		collision.disabled = true
 		mode = RigidBody2D.MODE_STATIC
 		var rot_dir = get_angle_to(follow_pos)
-		rotation += (rot_dir)
+		
+		rotation += (rot_dir + deg2rad(90))*0.2
 		var distance = follow_pos.distance_to(global_position)
 		global_position = follow_pos
 		pass
