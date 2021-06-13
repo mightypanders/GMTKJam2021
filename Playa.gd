@@ -125,6 +125,9 @@ func _on_PickupCheckArea_area_entered(area):
 
 
 func _physics_process(delta):
+	for g in guests:
+		if g == null:
+			guests.remove(g)
 	var direction = Vector2.UP.rotated(rotation).normalized() #Playerrotation nehmen ist sicherer
 	var forward_backward = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
 	
