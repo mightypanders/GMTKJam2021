@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=2]
+[gd_scene load_steps=128 format=2]
 
 [ext_resource path="res://assets/city_tiles/Street.png" type="Texture" id=1]
 [ext_resource path="res://assets/city_tiles/Buildings.png" type="Texture" id=2]
@@ -216,16 +216,16 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="ConvexPolygonShape2D" id=58]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="ConvexPolygonShape2D" id=56]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
-
-[sub_resource type="ConvexPolygonShape2D" id=57]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
-
-[sub_resource type="ConvexPolygonShape2D" id=58]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
-
 [sub_resource type="ConvexPolygonShape2D" id=59]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=60]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=61]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=62]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=63]
@@ -1477,14 +1477,14 @@ margin_right = 1331.08
 margin_bottom = 74.3368
 
 [node name="GameTime" type="Timer" parent="."]
-wait_time = 45.0
+wait_time = 35.853
 autostart = true
 
 [node name="GUI2" parent="." instance=ExtResource( 41 )]
-margin_left = -0.840881
-margin_top = 640.763
-margin_right = 1281.16
-margin_bottom = 720.763
+margin_left = 46.2492
+margin_top = 632.354
+margin_right = 1328.25
+margin_bottom = 712.354
 
 [connection signal="scored" from="Playa" to="." method="_on_Playa_scored"]
 [connection signal="timeout" from="GuestTimer" to="." method="_on_GuestTimer_timeout"]
