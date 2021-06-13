@@ -24,17 +24,18 @@ func add_Guest_to_Line(parent,guest):
 	parentAnchor.add_child(get_a_springjoint(parent,guest))
 	var pua = guest.get_node("PickUpArea")
 	pua.monitorable = false
+	guest.follow_node = parentAnchor
 	#springJoint.rotation = -rotation
 	return guest
 
 func get_a_springjoint(parent,child):
 	var springJoint = DampedSpringJoint2D.new()
 	#springJoint.rotation+=get_angle_to(guest.global_position)
-	springJoint.length = 5
-	springJoint.rest_length = 5
-	springJoint.stiffness = 64
+	springJoint.set_length(1)
+	springJoint.set_rest_length(0)
+	springJoint.stiffness = 100
 	springJoint.damping = 1.0
-	springJoint.disable_collision =true
+	springJoint.disable_collision = true
 	
 	springJoint.node_a =parent.get_path()
 	springJoint.node_b =child.get_path()
