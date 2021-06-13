@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 onready var pickUpArea = $PickUpArea
+onready var collision = $PhysicsCollision
 export var guestName = "Dieter"
 export var  PICKUPTRESHOLD = 100
 export var destinationColor = Color.yellow
@@ -14,6 +15,8 @@ signal dropped_off_fail
 var rng = RandomNumberGenerator.new()
 onready var exclusionZoneShape = $ExclusionZone/CollisionShape2D
 var sprite
+
+var delivered
 
 enum states {
 	waiting,
@@ -39,24 +42,40 @@ var names = [
 var currentState = states.waiting
 
 var follow_node = null
+var follow_pos = global_position
 
 func _physics_process(delta):
-	
-	if false:
-		if follow_node != null:
-			currentState = states.tethered
-			mode = RigidBody2D.MODE_STATIC
-			var rot_dir = get_angle_to(follow_node.global_position)
-			rotation += (rot_dir)
-			var distance = follow_node.global_position.distance_to(global_position)
-			global_position = (follow_node.global_position + Vector2(10,0) ) 
-	
 	#linear_velocity = linear_velocity.clamped(100)
 	if currentState == states.waiting:
 		linear_velocity.move_toward(Vector2.ZERO,5.0)
+		collision.disabled = false
+
 	elif currentState == states.tethered:
+		collision.disabled = true
+		mode = RigidBody2D.MODE_STATIC
+		var rot_dir = get_angle_to(follow_pos)
+		rotation += (rot_dir)
+		var distance = follow_pos.distance_to(global_position)
+		global_position = (follow_node.global_position) 
 		pass
 
+func _process(delta):
+	if delivered != null and OS.get_system_time_msecs() - delivered > 10000:
+		queue_free()
+	if visible == false:
+		follow_node = self
+		delivered = OS.get_system_time_msecs()
+	if follow_node != null:
+		if follow_node.visible == false:
+			follow_node = self
+		if follow_node == self:
+			currentState = states.waiting
+		else:
+			currentState = states.tethered
+			follow_pos = follow_node.global_position
+	else:
+		currentState = states.waiting
+		follow_pos = global_position
 
 func _ready():
 	rng.randomize()
@@ -76,10 +95,8 @@ func _ready():
 func _on_PickUpArea_body_entered(body):
 	print(body.name)
 	if body.name == "Playa":
-
-
-			pickup_time = OS.get_system_time_msecs()
-			emit_signal("picked_up",destinationColor,guestName)
+		pickup_time = OS.get_system_time_msecs()
+		emit_signal("picked_up",destinationColor,guestName)
 			# start pickup process
 		# we are being picked up by the player
 	pass

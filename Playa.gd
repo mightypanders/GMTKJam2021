@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var rope = preload("res://Rope.tscn")
+
 export var ACCELERATION = 60
 export var MAX_SPEED = 150
 export var FRICTION = 50
@@ -21,13 +23,28 @@ func add_Guest_to_Line(parent,guest):
 	guests.append(guest)
 	print('Picked up Guest %s with color %s'%[guest.guestName,guest.destinationColor])
 	var parentAnchor = parent.get_node("Anchor")
-	parentAnchor.add_child(get_a_springjoint(parent,guest))
+	#parentAnchor.add_child(get_a_springjoint(parent,guest))
+	var piece = rope.instance()
+	parentAnchor.add_child(get_a_pinjoint(parent,piece))
+	var pieceAnchor = piece.get_node("Anchor")
+	guest.follow_node = pieceAnchor
 	var pua = guest.get_node("PickUpArea")
 	pua.monitorable = false
-	guest.follow_node = parentAnchor
 	#springJoint.rotation = -rotation
+	piece.start()
 	return guest
 
+func get_a_pinjoint(parent,piece):
+	var jointAnchor = parent.get_node("Anchor")
+	piece.anchor_ahead = jointAnchor
+	var joint = PinJoint2D.new()
+	joint.add_child(piece)
+	joint.disable_collision = false
+	joint.softness = 10
+	joint.node_a = parent.get_path()
+	joint.node_b = piece.get_path()
+	return joint
+	
 func get_a_springjoint(parent,child):
 	var springJoint = DampedSpringJoint2D.new()
 	#springJoint.rotation+=get_angle_to(guest.global_position)
@@ -44,26 +61,40 @@ func get_a_springjoint(parent,child):
 
 func get_score_from_guest(guest):
 	var now = OS.get_system_time_msecs()
-	var diff = now - guest.pickup_time
+	var subtract = 0
+	if guest.pickup_time != null:
+		subtract = guest.pickup_time
+	else: 
+		subtract = now + 50000
+	var diff = now - subtract
 	var score = diff / 1000
 	score = 50 - score
 	return score
 	
 func remove_Guests_from_Line(color):
-
 	var colormatches = []
-
+	var firstFound 
 	for g in range(guests.size()):
 		if guests[g]!= null:
 			if guests[g].destinationColor == color:
 				colormatches.append(guests[g])
+				if firstFound == null:
+					firstFound = g
 
 	for i in colormatches:
+		for g in guests:
+			if g.is_in_group('Player'):
+				continue
+			if g.follow_node.get_parent() == i:
+				g.follow_node == g
 		var scoreValue = get_score_from_guest(i)
 		emit_signal("scored",scoreValue)
 		var pos = guests.find(i)
-		i.queue_free()
-		guests.remove(pos)
+		#i.queue_free()
+		i.visible = false
+		#guests.remove(pos)
+	if firstFound != null:
+		guests = guests.slice(0,firstFound-1,1,true)
 	return guests.back()
 
 func _on_PickupCheckArea_area_entered(area):
@@ -78,10 +109,11 @@ func _on_PickupCheckArea_area_entered(area):
 		pass
 	if area.get_parent().is_in_group("Guest"):
 		if guests.has(area.get_parent()):
-			print("Area has parent %s" % area.get_parent())
-			print("Guests we have:")
-			print(guests)
-			print("We already have you in line")
+			#print("Area has parent %s" % area.get_parent())
+			#print("Guests we have:")
+			#print(guests)
+			#print("We already have you in line")
+			pass
 		else:
 			print("Area has parent %s" % area.get_parent())
 			print("It's a Guest")

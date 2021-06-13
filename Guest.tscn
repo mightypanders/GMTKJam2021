@@ -15,8 +15,8 @@ radius = 6.0
 height = 9.75
 
 [sub_resource type="CapsuleShape2D" id=6]
-radius = 4.71085
-height = 5.19882
+radius = 8.02541
+height = 10.5115
 
 [node name="Guest" type="RigidBody2D" groups=[
 "Guest",
@@ -50,7 +50,7 @@ visible = false
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PhysicsCollision" type="CollisionShape2D" parent="."]
 modulate = Color( 0, 1, 0.976471, 1 )
 shape = SubResource( 3 )
 
