@@ -19,6 +19,9 @@ export var max_guests = 10
 
 func _on_Guest_picked_up(destinationColor,name):
 	print('Picked Up %s with name %s' % [destinationColor,name])
+	
+func _process(delta):
+	$GUI2/HBoxContainer/Time/Background/Number.text = String(int($GameTime.time_left))
 
 func _ready():
 	rng.randomize()
@@ -63,3 +66,14 @@ func _on_Playa_scored(value:int):
 	print('Its a score of %s'% String(value))
 	player_score += value
 	money_label.update_text(player_score)
+
+
+func _on_GameTime_timeout():
+	#get_tree().change_scene("res://GameEnd.tscn")
+	var world = get_tree().root.get_node("World")
+	var end_screen_resource = load("res://GameEnd.tscn")
+	var end_screen = end_screen_resource.instance()
+	end_screen.score = player_score
+	get_tree().root.add_child(end_screen)
+	get_tree().root.remove_child(world)
+	world.queue_free()

@@ -4,17 +4,17 @@
 [ext_resource path="res://Guest.gd" type="Script" id=2]
 [ext_resource path="res://assets/Sam.png" type="Texture" id=3]
 
-[sub_resource type="PhysicsMaterial" id=7]
+[sub_resource type="PhysicsMaterial" id=1]
 absorbent = true
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=2]
 radius = 124.702
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 6.0
 height = 9.75
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 8.02541
 height = 10.5115
 
@@ -24,7 +24,7 @@ height = 10.5115
 collision_layer = 3
 collision_mask = 3
 mass = 10.0
-physics_material_override = SubResource( 7 )
+physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 angular_damp = 100.0
 script = ExtResource( 2 )
@@ -37,7 +37,7 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExclusionZone"]
 modulate = Color( 0.0823529, 1, 0.027451, 1 )
 show_behind_parent = true
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="SpriteMarkus" type="Sprite" parent="."]
@@ -59,7 +59,7 @@ modulate = Color( 1, 0, 0.984314, 1 )
 scale = Vector2( 2.76, 2.6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="Anchor" type="Position2D" parent="."]
 
