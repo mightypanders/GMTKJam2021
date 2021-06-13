@@ -28,6 +28,8 @@ func _ready():
 	print(radius_guests)
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
 	pass
 
 func _on_GuestTimer_timeout():

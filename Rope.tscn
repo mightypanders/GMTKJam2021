@@ -8,6 +8,8 @@ extents = Vector2( 1, 10 )
 
 [node name="Rope" type="RigidBody2D"]
 position = Vector2( 0, 10 )
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -20,3 +22,4 @@ position = Vector2( 0, 9.83977 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+disabled = true

@@ -6,10 +6,17 @@ export var ACCELERATION = 60
 export var MAX_SPEED = 150
 export var FRICTION = 50
 
+enum states {
+	waiting,
+	tethered,
+	delivered
+}
+
 var velocity = Vector2.ZERO
 var last_in_line
 var destinationColor = Color.transparent
 var guestName = 'Car'
+var currentState = states.tethered
 
 signal scored(value)
 var guests = []
@@ -27,7 +34,7 @@ func add_Guest_to_Line(parent,guest):
 	var piece = rope.instance()
 	parentAnchor.add_child(get_a_pinjoint(parent,piece))
 	var pieceAnchor = piece.get_node("Anchor")
-	guest.follow_node = pieceAnchor
+	guest.follow_node = parent
 	var pua = guest.get_node("PickUpArea")
 	pua.monitorable = false
 	#springJoint.rotation = -rotation
@@ -41,6 +48,7 @@ func get_a_pinjoint(parent,piece):
 	joint.add_child(piece)
 	joint.disable_collision = false
 	joint.softness = 10
+	joint.name = "Joint"
 	joint.node_a = parent.get_path()
 	joint.node_b = piece.get_path()
 	return joint
@@ -85,8 +93,9 @@ func remove_Guests_from_Line(color):
 		for g in guests:
 			if g.is_in_group('Player'):
 				continue
-			if g.follow_node.get_parent() == i:
-				g.follow_node == g
+			if g.follow_guest == i:
+				g.follow_node = g
+				g.follow_guest = g
 		var scoreValue = get_score_from_guest(i)
 		emit_signal("scored",scoreValue)
 		var pos = guests.find(i)
@@ -125,6 +134,9 @@ func _on_PickupCheckArea_area_entered(area):
 
 
 func _physics_process(delta):
+	for g in guests:
+		if g == null:
+			guests.remove(g)
 	var direction = Vector2.UP.rotated(rotation).normalized() #Playerrotation nehmen ist sicherer
 	var forward_backward = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
 	

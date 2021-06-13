@@ -12,7 +12,6 @@ var colorList = [
 	Color.violet,
 	Color.red,
 	Color.turquoise,
-	Color.orange
 ]
 
 # Declare member variables here. Examples:
@@ -22,15 +21,16 @@ var colorList = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	modulate_color()
+
+func modulate_color():
 	rng.randomize()
-	var n = rng.randi_range(0,4)
+	var n = rng.randi_range(0,colorList.size()-1)
 	print(n)
 	destinationColor = colorList[n]
 	print(destinationColor)
 	sprite.modulate = destinationColor
 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_Timer_timeout():
+	modulate_color()
