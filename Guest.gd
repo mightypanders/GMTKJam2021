@@ -20,14 +20,14 @@ var delivered
 
 enum states {
 	waiting,
-	tethered
+	tethered,
+	delivered
 }
 var colorList = [
 	Color.yellow,
 	Color.violet,
 	Color.red,
-	Color.turquoise,
-	Color.orange
+	Color.turquoise
 ]
 var names = [
 	'Dieter',
@@ -42,10 +42,12 @@ var names = [
 var currentState = states.waiting
 
 var follow_node = null
+var follow_guest = null
 var follow_pos = global_position
 
 func _physics_process(delta):
 	#linear_velocity = linear_velocity.clamped(100)
+	
 	if currentState == states.waiting:
 		linear_velocity.move_toward(Vector2.ZERO,5.0)
 		collision.disabled = false
@@ -56,23 +58,33 @@ func _physics_process(delta):
 		var rot_dir = get_angle_to(follow_pos)
 		rotation += (rot_dir)
 		var distance = follow_pos.distance_to(global_position)
-		global_position = (follow_node.global_position) 
+		global_position = follow_pos
 		pass
+	elif currentState == states.delivered:
+		pickUpArea.monitorable = false
+		pickUpArea.monitoring = false
+		collision.disabled = true
 
 func _process(delta):
-	if delivered != null and OS.get_system_time_msecs() - delivered > 10000:
+	if delivered != null and OS.get_system_time_msecs() - delivered > 1000:
 		queue_free()
+		
+		
 	if visible == false:
 		follow_node = self
-		delivered = OS.get_system_time_msecs()
-	if follow_node != null:
+		if delivered == null:
+			delivered = OS.get_system_time_msecs()
+		currentState = states.delivered
+		
+	if follow_node != null and follow_node != self:
+		currentState = follow_node.currentState
 		if follow_node.visible == false:
 			follow_node = self
 		if follow_node == self:
 			currentState = states.waiting
 		else:
 			currentState = states.tethered
-			follow_pos = follow_node.global_position
+			follow_pos = follow_node.get_node("Anchor/Joint/Rope/Anchor").global_position
 	else:
 		currentState = states.waiting
 		follow_pos = global_position
@@ -86,7 +98,7 @@ func _ready():
 	if spriteNum % 2 != 0:
 		$SpriteSam.visible = true
 		sprite = $SpriteSam	
-	var n = rng.randi_range(0,4)
+	var n = rng.randi_range(0,colorList.size()-1)
 	destinationColor = colorList[n]
 	sprite.modulate = destinationColor
 	var m = rng.randi_range(0,names.size()-1)
