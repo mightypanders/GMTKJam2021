@@ -18,16 +18,12 @@ const MAX_SPAWN_TRIES = 50
 onready var radius_guests = guests.get_child(0).exclusionZoneShape.shape.radius * 2
 export var max_guests = 10
 
-func _on_Guest_picked_up(destinationColor,name):
-	print('Picked Up %s with name %s' % [destinationColor,name])
-	
 func _process(delta):
 	$GUI2/HBoxContainer/Time/Background/Number.text = String(int($GameTime.time_left))
 
 func _ready():
 	dropOffPointListNode.set_colors()
 	rng.randomize()
-	print(radius_guests)
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -67,7 +63,6 @@ func create_new_guest():
 
 func _on_Playa_scored(value:int):
 	spawn_tries = 0
-	print('Its a score of %s'% String(value))
 	player_score += value
 	money_label.update_text(player_score)
 
