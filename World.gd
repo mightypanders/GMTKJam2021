@@ -25,7 +25,7 @@ func _process(delta):
 
 func _ready():
 	rng.randomize()
-	print(radius_guests)
+	#print(radius_guests)
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -65,7 +65,7 @@ func create_new_guest():
 
 func _on_Playa_scored(value:int):
 	spawn_tries = 0
-	print('Its a score of %s'% String(value))
+	#print('Its a score of %s'% String(value))
 	player_score += value
 	money_label.update_text(player_score)
 

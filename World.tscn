@@ -1440,26 +1440,28 @@ position = Vector2( 163.29, 78.3416 )
 rotation = 1.6223
 scale = Vector2( 0.5, 0.5 )
 
-[node name="DropOffPoint" parent="." instance=ExtResource( 4 )]
-position = Vector2( 645.77, 99.6374 )
+[node name="DropOffPointList" type="Node" parent="."]
 
-[node name="DropOffPoint2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 520.662, 230.739 )
+[node name="DropOffPoint" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 614.148, 114.608 )
 
-[node name="DropOffPoint3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 166.312, 322.885 )
+[node name="DropOffPoint2" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 309.47, 613.175 )
 
-[node name="DropOffPoint4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 764.774, 506.833 )
+[node name="DropOffPoint3" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 139.447, 276.017 )
 
-[node name="DropOffPoint5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 953.763, 232.171 )
+[node name="DropOffPoint4" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 717.693, 517.047 )
 
-[node name="DropOffPoint6" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1207.01, 102.399 )
+[node name="DropOffPoint5" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 906.682, 242.385 )
 
-[node name="DropOffPoint7" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1156.61, 613.927 )
+[node name="DropOffPoint6" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 1159.93, 112.613 )
+
+[node name="DropOffPoint7" parent="DropOffPointList" instance=ExtResource( 4 )]
+position = Vector2( 1109.53, 624.141 )
 
 [node name="GuestTimer" type="Timer" parent="."]
 wait_time = 1.019
@@ -1477,7 +1479,7 @@ margin_right = 1331.08
 margin_bottom = 74.3368
 
 [node name="GameTime" type="Timer" parent="."]
-wait_time = 35.853
+wait_time = 120.0
 autostart = true
 
 [node name="GUI2" parent="." instance=ExtResource( 41 )]
