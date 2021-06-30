@@ -45,32 +45,35 @@ var follow_node = null
 var follow_guest = null
 var follow_pos = global_position
 
+func set_state(state):
+	if state == states.delivered:
+		pickUpArea.monitorable = false
+		pickUpArea.monitoring = false
+		collision.disabled = true
+	if state == states.waiting:
+		collision.disabled = false
+		mode = RigidBody2D.MODE_KINEMATIC
+	if state == states.tethered:
+		collision.disabled = false
+		mode = RigidBody2D.MODE_STATIC
+
 func _physics_process(delta):
 	#linear_velocity = linear_velocity.clamped(100)
 	
 	if currentState == states.waiting:
 		linear_velocity.move_toward(Vector2.ZERO,5.0)
-		collision.disabled = false
 
 	elif currentState == states.tethered:
-		collision.disabled = true
-		mode = RigidBody2D.MODE_STATIC
 		var rot_dir = get_angle_to(follow_pos)
-		
 		rotation += (rot_dir + deg2rad(90))*0.2
 		var distance = follow_pos.distance_to(global_position)
 		global_position = follow_pos
 		pass
-	elif currentState == states.delivered:
-		pickUpArea.monitorable = false
-		pickUpArea.monitoring = false
-		collision.disabled = true
+
 
 func _process(delta):
 	if delivered != null and OS.get_system_time_msecs() - delivered > 1000:
 		queue_free()
-		
-		
 	if visible == false:
 		follow_node = self
 		if delivered == null:
