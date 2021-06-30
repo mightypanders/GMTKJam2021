@@ -1,3 +1,4 @@
+class_name DropOffPoint
 extends Node2D
 
 export var entity_name = "DROPOFF"
@@ -26,9 +27,9 @@ func _ready():
 func modulate_color():
 	rng.randomize()
 	var n = rng.randi_range(0,colorList.size()-1)
-	print(n)
+	#print(n)
 	destinationColor = colorList[n]
-	print(destinationColor)
+	#print(destinationColor)
 	sprite.modulate = destinationColor
 
 
