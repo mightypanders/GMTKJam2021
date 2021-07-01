@@ -1481,7 +1481,7 @@ margin_right = 1331.08
 margin_bottom = 74.3368
 
 [node name="GameTime" type="Timer" parent="."]
-wait_time = 35.853
+wait_time = 120.0
 autostart = true
 
 [node name="GUI2" parent="." instance=ExtResource( 41 )]

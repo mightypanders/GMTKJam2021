@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "DropOffPoint",
+"language": "GDScript",
+"path": "res://DropOffPoint.gd"
+} ]
+_global_script_class_icons={
+"DropOffPoint": ""
+}
+
 [application]
 
 config/name="City Bound"
