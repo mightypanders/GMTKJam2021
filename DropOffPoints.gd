@@ -4,7 +4,7 @@ var colorList = [
 	Color.yellow,
 	Color.violet,
 	Color.red,
-	Color.turquoise,
+	Color.blue,
 ]
 
 onready var rng = RandomNumberGenerator.new()
