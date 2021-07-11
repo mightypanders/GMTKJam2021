@@ -138,7 +138,7 @@ func _physics_process(delta):
 		if g == null:
 			guests.remove(g)
 	var direction = Vector2.UP.rotated(rotation).normalized() #Playerrotation nehmen ist sicherer
-	var forward_backward = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
+	var forward_backward = Input.get_action_strength("accelerate") - Input.get_action_strength("brake")
 	
 	
 	if forward_backward != 0:
@@ -146,7 +146,7 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 		
-	var steer_dir = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var steer_dir = Input.get_action_strength("right") - Input.get_action_strength("left")
 		
 	if steer_dir != 0 && velocity.length() > 0:
 		var direction_new = direction.rotated(PI/1.5 * steer_dir * delta)
