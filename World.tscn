@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=2]
+[gd_scene load_steps=129 format=2]
 
 [ext_resource path="res://assets/city_tiles/Street.png" type="Texture" id=1]
 [ext_resource path="res://assets/city_tiles/Buildings.png" type="Texture" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://assets/city_tiles/Tür 16 LU.png" type="Texture" id=39]
 [ext_resource path="res://assets/city_tiles/Fenster 16.png" type="Texture" id=40]
 [ext_resource path="res://GUIIngameBot.tscn" type="PackedScene" id=41]
+[ext_resource path="res://DropOffPoints.gd" type="Script" id=42]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -1440,27 +1441,28 @@ position = Vector2( 163.29, 78.3416 )
 rotation = 1.6223
 scale = Vector2( 0.5, 0.5 )
 
-[node name="DropOffPointList" type="Node" parent="."]
+[node name="DropOffPoints" type="Node" parent="."]
+script = ExtResource( 42 )
 
-[node name="DropOffPoint" parent="DropOffPointList" instance=ExtResource( 4 )]
-position = Vector2( 614.148, 114.608 )
+[node name="DropOffPoint" parent="DropOffPoints" instance=ExtResource( 4 )]
+position = Vector2( 598.689, 109.852 )
 
-[node name="DropOffPoint2" parent="DropOffPointList" instance=ExtResource( 4 )]
-position = Vector2( 309.47, 613.175 )
+[node name="DropOffPoint2" parent="DropOffPoints" instance=ExtResource( 4 )]
+position = Vector2( 473.58, 240.953 )
 
-[node name="DropOffPoint3" parent="DropOffPointList" instance=ExtResource( 4 )]
-position = Vector2( 139.447, 276.017 )
+[node name="DropOffPoint3" parent="DropOffPoints" instance=ExtResource( 4 )]
+position = Vector2( 119.23, 333.099 )
 
-[node name="DropOffPoint4" parent="DropOffPointList" instance=ExtResource( 4 )]
+[node name="DropOffPoint4" parent="DropOffPoints" instance=ExtResource( 4 )]
 position = Vector2( 717.693, 517.047 )
 
-[node name="DropOffPoint5" parent="DropOffPointList" instance=ExtResource( 4 )]
+[node name="DropOffPoint5" parent="DropOffPoints" instance=ExtResource( 4 )]
 position = Vector2( 906.682, 242.385 )
 
-[node name="DropOffPoint6" parent="DropOffPointList" instance=ExtResource( 4 )]
+[node name="DropOffPoint6" parent="DropOffPoints" instance=ExtResource( 4 )]
 position = Vector2( 1159.93, 112.613 )
 
-[node name="DropOffPoint7" parent="DropOffPointList" instance=ExtResource( 4 )]
+[node name="DropOffPoint7" parent="DropOffPoints" instance=ExtResource( 4 )]
 position = Vector2( 1109.53, 624.141 )
 
 [node name="GuestTimer" type="Timer" parent="."]
@@ -1490,5 +1492,4 @@ margin_bottom = 712.354
 
 [connection signal="scored" from="Playa" to="." method="_on_Playa_scored"]
 [connection signal="timeout" from="GuestTimer" to="." method="_on_GuestTimer_timeout"]
-[connection signal="picked_up" from="Guests/Guest" to="." method="_on_Guest_picked_up"]
 [connection signal="timeout" from="GameTime" to="." method="_on_GameTime_timeout"]
