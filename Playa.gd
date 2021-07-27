@@ -109,10 +109,10 @@ func remove_Guests_from_Line(color):
 func _on_PickupCheckArea_area_entered(area):
 	
 	if area.get_parent().is_in_group("DropOffPoint"):
-		print("It's a DOP")
+		#print("It's a DOP")
 		var dop = area.get_parent()
 		var color = dop.destinationColor
-		print(color)
+		#print(color)
 		last_in_line = remove_Guests_from_Line(color)
 		#drop all guests after first guest.color == DOP.color, also vanish all guests.color == DOP.color
 		pass
@@ -124,10 +124,10 @@ func _on_PickupCheckArea_area_entered(area):
 			#print("We already have you in line")
 			pass
 		else:
-			print("Area has parent %s" % area.get_parent())
-			print("It's a Guest")
+			#print("Area has parent %s" % area.get_parent())
+			#print("It's a Guest")
 			last_in_line = add_Guest_to_Line(last_in_line,area.get_parent())
-			print(last_in_line)
+			#print(last_in_line)
 
 	print(guests)
 
@@ -138,7 +138,7 @@ func _physics_process(delta):
 		if g == null:
 			guests.remove(g)
 	var direction = Vector2.UP.rotated(rotation).normalized() #Playerrotation nehmen ist sicherer
-	var forward_backward = Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down")
+	var forward_backward = Input.get_action_strength("accelerate") - Input.get_action_strength("brake")
 	
 	
 	if forward_backward != 0:
@@ -146,7 +146,7 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 		
-	var steer_dir = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var steer_dir = Input.get_action_strength("right") - Input.get_action_strength("left")
 		
 	if steer_dir != 0 && velocity.length() > 0:
 		var direction_new = direction.rotated(PI/1.5 * steer_dir * delta)
