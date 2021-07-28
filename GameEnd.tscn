@@ -94,6 +94,6 @@ margin_top = 252.0
 margin_right = 1280.0
 margin_bottom = 281.0
 custom_fonts/font = SubResource( 2 )
-text = "New Game"
+text = "To Menu"
 
 [connection signal="pressed" from="ColorRect/VBoxContainer/New Game" to="." method="_on_New_Game_pressed"]
