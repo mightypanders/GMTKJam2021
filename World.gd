@@ -3,7 +3,7 @@ extends Node2D
 onready var streets = $Streets
 onready var used_cells = streets.get_used_cells()
 onready var guests = $Guests
-onready var money_label = $GUI/HBoxContainer/HBoxContainer2/Money
+onready var money_label = $GUI/GUI/HBoxContainer/HBoxContainer2/Money
 onready var dropOffPointListNode = $DropOffPoints
 
 export var player_score = 0
@@ -19,7 +19,7 @@ onready var radius_guests = guests.get_child(0).exclusionZoneShape.shape.radius 
 export var max_guests = 10
 
 func _process(delta):
-	$GUI2/HBoxContainer/Time/Background/Number.text = String(int($GameTime.time_left))
+	$GUI/GUI2/HBoxContainer/Time/Background/Number.text = String(int($GameTime.time_left))
 
 func _ready():
 	dropOffPointListNode.set_colors()
